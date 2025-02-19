@@ -1,0 +1,8 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../pcie_base.ip_user_files/bd/PCIe/ip/PCIe_util_ds_buf_0_0/util_ds_buf.vhd" \
+"../../../../pcie_base.ip_user_files/bd/PCIe/ip/PCIe_util_ds_buf_0_0/sim/PCIe_util_ds_buf_0_0.vhd" \
+"../../../../pcie_base.ip_user_files/bd/PCIe/ip/PCIe_rst_mig_7series_0_100M_0/sim/PCIe_rst_mig_7series_0_100M_0.vhd" \
+
+# Do not sort compile order
+nosort

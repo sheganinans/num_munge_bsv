@@ -1,0 +1,4 @@
+**/*.v
+build_bsim
+testbench
+testbench.so
