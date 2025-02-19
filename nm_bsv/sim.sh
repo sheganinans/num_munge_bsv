@@ -3,7 +3,7 @@ bsc -u -sim -show-range-conflict \
     -bdir build_bsim \
     -info-dir build_bsim \
     -elab -keep-fires -aggressive-conditions -no-warn-action-shadowing \
-    -p ./src:./bsc-contrib/Libraries/AMBA_TLM3/TLM3:%/Libraries \
+    -p ./src:../bsc-contrib/Libraries/AMBA_TLM3/TLM3:%/Libraries \
     -g mkTestbench  \
     ./test/Testbench.bsv && \
 bsc -e mkTestbench -sim \
@@ -12,5 +12,5 @@ bsc -e mkTestbench -sim \
     -bdir build_bsim \
     -info-dir build_bsim \
     -keep-fires \
-    -p ./src:./bsc-contrib/Libraries/AMBA_TLM3/TLM3:%/Libraries && \
+    -p ./src:../bsc-contrib/Libraries/AMBA_TLM3/TLM3:%/Libraries && \
 echo "" && ./testbench
