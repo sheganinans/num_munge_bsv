@@ -103,3 +103,5 @@
 */*/*/bd/*/ip/*/*.tcl
 hw_handoff
 ipshared
+
+bsc-contrib/**/*.v
