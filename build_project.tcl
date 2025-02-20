@@ -1,4 +1,10 @@
 open_project num_munge.xpr
+if {[llength [get_property INCREMENTAL_CHECKPOINT [get_runs synth_1]]] != 0} {
+    set_property INCREMENTAL_CHECKPOINT "" [get_runs synth_1]
+}
+if {[llength [get_property INCREMENTAL_CHECKPOINT [get_runs impl_1]]] != 0} {
+    set_property INCREMENTAL_CHECKPOINT "" [get_runs impl_1]
+}
 set_property top PCIe_wrapper [current_fileset]
 reset_run synth_1
 launch_runs synth_1

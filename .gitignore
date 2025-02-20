@@ -79,6 +79,8 @@
 ### block design
 */*/bd/*/hdl
 */*/*/bd/*/hdl
+!*/*/bd/*/hdl/PCIe_wrapper.v
+!*/*/*/bd/*/hdl/PCIe_wrapper.v
 
 */*/bd/*/*.xdc
 */*/*/bd/*/*.xdc
