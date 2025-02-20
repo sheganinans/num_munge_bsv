@@ -10,7 +10,7 @@ import Nm::*;
 (* synthesize, always_enabled *)
 module mkTestbench (Empty);
    Axi4LRdWrMaster#(`TLM_PRM_STD) axi <- nm;
-   Reg#(int) count <- mkReg(0);
+   Reg#(Int#(32)) count <- mkReg(0);
    Reg#(Bool) awREADY <- mkReg(False);
    Reg#(AxiResp) bRESP <- mkReg(?);
    Reg#(Bool) bVALID <- mkReg(False);

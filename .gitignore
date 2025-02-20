@@ -105,3 +105,5 @@ hw_handoff
 ipshared
 
 bsc-contrib/**/*.v
+*.log
+num_munge.bit
