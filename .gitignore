@@ -111,3 +111,4 @@ bsc-contrib/**/*.v
 num_munge.bit
 testbench
 testbench.so
+!nm_bsv/build_bsim/.gitignore
