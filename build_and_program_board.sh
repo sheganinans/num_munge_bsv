@@ -1,3 +1,5 @@
+echo "bsv to verilog" && \
+./bsv_to_verilog.sh && \
 echo "building, see ./build.log." && \
 vivado -mode batch -source build_project.tcl 1> build.log && \
 echo "programming, see ./program.log." && \
