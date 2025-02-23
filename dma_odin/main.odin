@@ -1,10 +1,15 @@
 package dma_odin
 
+import "core:flags"
 import "core:fmt"
 import "core:mem"
 import "core:os"
 
 Mode :: enum { Read, Write }
+
+Options :: struct {
+  write: bool `usage:"write the hello.txt test file."`,
+}
 
 main :: proc() {
   when ODIN_DEBUG {
@@ -14,7 +19,10 @@ main :: proc() {
     defer for _, v in tracking_allocator.allocation_map { fmt.printfln("%v: Leaked %v bytes.", v.location, v.size) }
     defer for b in tracking_allocator.bad_free_array { fmt.printfln("Bad free at: %v", b.location) } }
 
-  mode := Mode.Read
+  opt: Options
+  flags.parse_or_exit(&opt, os.args, .Odin)
+
+  mode := Mode.Write if opt.write else Mode.Read
   address: i64 = 0
 
   n := 1024 //0x4000_0000

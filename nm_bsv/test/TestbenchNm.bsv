@@ -1,15 +1,15 @@
-package Testbench;
+package TestbenchNm;
 
 import AxiDefines::*;
 import Axi4LDefines::*;
 
-import DmaController::*;
+import Nm::*;
 
 `include "TLM.defines"
 
 (* synthesize, always_enabled *)
-module mkTestbench (Empty);
-   Axi4LRdWrMaster#(`TLM_PRM_STD) axi <- mkDmaController;
+module mkTestbenchNm (Empty);
+   Axi4LRdWrMaster#(`TLM_PRM_STD) axi <- nm;
    Reg#(Int#(32)) count <- mkReg(0);
    Reg#(Bool) awREADY <- mkReg(False);
    Reg#(AxiResp) bRESP <- mkReg(?);

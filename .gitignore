@@ -109,6 +109,5 @@ ipshared
 bsc-contrib/**/*.v
 *.log
 num_munge.bit
-testbench
-testbench.so
+testbench*
 !nm_bsv/build_bsim/.gitignore
