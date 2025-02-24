@@ -9,8 +9,8 @@ import Vector::*;
 typedef enum { Ready, Processing } PipelineState deriving (Bits, Eq);
 
 interface SqrtPipeline;
-  method Action push (FixedPoint#(`FixPointSizes) x);
   method ActionValue#(FixedPoint#(`FixPointSizes)) get;
+  method Action put (FixedPoint#(`FixPointSizes) x);
   method Bool inputReady;
   method Bool outputValid;
 endinterface
@@ -52,17 +52,17 @@ module mkSqrtPipeline (SqrtPipeline);
     end
   endrule
 
-  method Action push(FixedPoint#(`FixPointSizes) x) if (state == Ready && !isValid(xs[0]));
-    input_fifo.enq(x);
-  endmethod
-
   method ActionValue#(FixedPoint#(`FixPointSizes)) get;
     output_fifo.deq;
     return output_fifo.first;
   endmethod
 
+  method Action put (FixedPoint#(`FixPointSizes) x);
+    input_fifo.enq(x);
+  endmethod
+
   method Bool inputReady;
-    return state == Ready && !isValid(xs[0]);
+    return state == Ready;
   endmethod
 
   method Bool outputValid;
