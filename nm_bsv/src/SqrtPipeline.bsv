@@ -25,13 +25,13 @@ module mkSqrtPipeline (SqrtPipeline);
 
   Reg#(PipelineState) state <- mkReg(Ready);
 
-  let idx = valueOf(SizeOf#(FixedPoint#(`FixPointSizes)))-1;
+  let guess_slice = valueOf(SizeOf#(FixedPoint#(`FixPointSizes)))-1;
 
   rule input_rule if (state == Ready && !isValid(xs[0]));
     let x = input_fifo.first;
     input_fifo.deq;
     xs[0] <= tagged Valid x;
-    ys[0] <= x < 1 ? fromRational(1,2) : (unpack(pack(x)[idx:1])); // approximates x/2^0.5
+    ys[0] <= x < 1 ? fromRational(1,2) : unpack(pack(x)[guess_slice:1]); // approximates x/2^0.5
     state <= Processing;
   endrule
 
@@ -48,6 +48,7 @@ module mkSqrtPipeline (SqrtPipeline);
     if (pipeline_done && isValid(xs[`SqrtPipeN-1])) begin
       output_fifo.enq(ys[`SqrtPipeN-1]);
       xs[`SqrtPipeN-1] <= tagged Invalid;
+      state <= Ready;
     end
   endrule
 
