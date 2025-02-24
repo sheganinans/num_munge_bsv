@@ -10,7 +10,7 @@ My personal FPGA playground, used to experiment with my [ALINX AX7A200B](https:/
 - [x] Basic host script to talk to PCIE/DMA.
 - [x] Basic Bluespec design to integrate with DMA through AXI.
 - [x] Tcl build script for Vivado.
-- [ ] Better build script handling.
+- [ ] Better test script handling.
 - [ ] Update Bluespec design for numerical simulation.
 - [ ] Update host script for interacting with numerical simulation.
 
