@@ -8,13 +8,13 @@ module mkTestbenchSqrt (Empty);
   Reg#(Bool) pushed <- mkReg(False);
   Reg#(Bool) done <- mkReg(False);
 
-  rule do_push (!pushed);
-    $display($time, ": Pushing sqrt(0.25)");
-    sqrt.push(0.25);
+  rule do_put (!pushed);
+    $display($time, ": Putting sqrt(0.25)");
+    sqrt.put(0.25);
     pushed <= True;
   endrule
 
-  rule do_get (pushed && !done && sqrt.outputValid);
+  rule do_get (pushed && !done && sqrt.outputReady);
     let v <- sqrt.get;
     $display($time, ": sqrt(0.25) = 0x%x", v);
     done <= True;

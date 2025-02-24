@@ -12,7 +12,7 @@ interface SqrtPipeline;
   method ActionValue#(FixedPoint#(`FixPointSizes)) get;
   method Action put (FixedPoint#(`FixPointSizes) x);
   method Bool inputReady;
-  method Bool outputValid;
+  method Bool outputReady;
 endinterface
 
 (* synthesize *)
@@ -65,7 +65,7 @@ module mkSqrtPipeline (SqrtPipeline);
     return state == Ready;
   endmethod
 
-  method Bool outputValid;
+  method Bool outputReady;
     return output_fifo.notEmpty;
   endmethod
 endmodule
