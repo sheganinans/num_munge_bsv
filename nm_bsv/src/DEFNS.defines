@@ -1,0 +1,3 @@
+`define SqrtPipeN 5
+
+`define FixPointSizes 16,16
