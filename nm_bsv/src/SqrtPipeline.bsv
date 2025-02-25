@@ -41,7 +41,7 @@ module mkSqrtPipeline (SqrtPipeline);
       if (xs[i].notEmpty && !xs[i+1].notEmpty) begin
         xs[i].deq;
         xs[i+1].enq(xs[i].first);
-        ys[i+1] <= ((ys[i] + (xs[i].first / ys[i])) >> 1);
+        ys[i+1] <= (ys[i] + (xs[i].first / ys[i])) >> 1;
         pipeline_done = False;
       end
     end
