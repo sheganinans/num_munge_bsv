@@ -27,7 +27,7 @@ module mkSqrtPipeline (SqrtPipeline);
       input_fifo.deq;
       let x = input_fifo.first;
       xs[0] <= tagged Valid x;
-      ys[0] <= x < 1 ? fromRational(1,2) : (x >> 1);
+      ys[0] <= x < 1 ? fromRational(1, 2) : (x >> 1);
     end else begin
       xs[0] <= tagged Invalid;
       ys[0] <= 1;
