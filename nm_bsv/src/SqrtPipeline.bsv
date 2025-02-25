@@ -25,7 +25,7 @@ module mkSqrtPipeline (SqrtPipeline);
 
   Reg#(PipelineState) state <- mkReg(Ready);
 
-  rule input_rule if (state == Ready && !xs[0].notEmpty);
+  rule input_rule if (state == Ready && xs[0].notFull);
     input_fifo.deq;
     let x = input_fifo.first;
     xs[0].enq(x);
@@ -37,7 +37,7 @@ module mkSqrtPipeline (SqrtPipeline);
   rule compute_rule if (state == Processing);
     Bool pipeline_done = True;
     for (int i = 0; i < `SqrtPipeN-1; i = i + 1) begin
-      if (xs[i].notEmpty && !xs[i+1].notEmpty) begin
+      if (xs[i].notEmpty && xs[i+1].notFull) begin
         xs[i].deq;
         xs[i+1].enq(xs[i].first);
         ys[i+1] <= (ys[i] + (xs[i].first / ys[i])) >> 1;
