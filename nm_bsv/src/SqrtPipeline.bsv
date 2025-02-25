@@ -11,45 +11,41 @@ typedef enum { Ready, Processing } PipelineState deriving (Bits, Eq);
 interface SqrtPipeline;
   method ActionValue#(FixedPoint#(`FixPointSizes)) get;
   method Action put (FixedPoint#(`FixPointSizes) x);
-  method Bool inputReady;
   method Bool outputReady;
 endinterface
 
 (* synthesize *)
 module mkSqrtPipeline (SqrtPipeline);
-  Vector#(`SqrtPipeN, FIFOF#(FixedPoint#(`FixPointSizes))) xs <- replicateM(mkFIFOF);
-  Vector#(`SqrtPipeN, Reg#(FixedPoint#(`FixPointSizes))) ys <- replicateM(mkRegU);
+  Vector#(`SqrtPipeN, Reg#(Maybe#(FixedPoint#(`FixPointSizes)))) xs <- replicateM(mkReg(tagged Invalid));
+  Vector#(`SqrtPipeN, Reg#(FixedPoint#(`FixPointSizes))) ys <- replicateM(mkReg(1));
 
   FIFOF#(FixedPoint#(`FixPointSizes)) input_fifo <- mkFIFOF;
   FIFOF#(FixedPoint#(`FixPointSizes)) output_fifo <- mkFIFOF;
 
-  Reg#(PipelineState) state <- mkReg(Ready);
+  rule go;
+    if (input_fifo.notEmpty) begin
+      input_fifo.deq;
+      let x = input_fifo.first;
+      xs[0] <= tagged Valid x;
+      ys[0] <= x < 1 ? fromRational(1,2) : (x >> 1);
+    end else begin
+      xs[0] <= tagged Invalid;
+      ys[0] <= 1;
+    end
 
-  rule input_rule if (state == Ready && xs[0].notFull);
-    input_fifo.deq;
-    let x = input_fifo.first;
-    xs[0].enq(x);
-    let guess_slice = valueOf(SizeOf#(FixedPoint#(`FixPointSizes)))-1;
-    ys[0] <= x < 1 ? fromRational(1,2) : unpack(pack(x)[guess_slice:1]); // approximates x/2^0.5
-    state <= Processing;
-  endrule
-
-  rule compute_rule if (state == Processing);
-    Bool pipeline_done = True;
     for (int i = 0; i < `SqrtPipeN-1; i = i + 1) begin
-      if (xs[i].notEmpty && xs[i+1].notFull) begin
-        xs[i].deq;
-        xs[i+1].enq(xs[i].first);
-        ys[i+1] <= (ys[i] + (xs[i].first / ys[i])) >> 1;
-        pipeline_done = False;
+      if (isValid(xs[i])) begin
+        let x = fromMaybe(?, xs[i]);
+        xs[i+1] <= tagged Valid x;
+        ys[i+1] <= (ys[i] + (x / ys[i])) >> 1;
+      end else begin
+        xs[i+1] <= tagged Invalid;
+        ys[i+1] <= 1;
       end
     end
 
-    if (pipeline_done && xs[`SqrtPipeN-1].notEmpty) begin
+    if (isValid(xs[`SqrtPipeN-1]))
       output_fifo.enq(ys[`SqrtPipeN-1]);
-      xs[`SqrtPipeN-1].deq;
-      state <= Ready;
-    end
   endrule
 
   method ActionValue#(FixedPoint#(`FixPointSizes)) get;
@@ -61,7 +57,6 @@ module mkSqrtPipeline (SqrtPipeline);
     input_fifo.enq(x);
   endmethod
 
-  method Bool  inputReady; return       state == Ready; endmethod
   method Bool outputReady; return output_fifo.notEmpty; endmethod
 endmodule
 
