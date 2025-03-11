@@ -1,17 +1,29 @@
 package TestbenchSqrt;
 
 import FixedPoint::*;
-import SqrtPipeline::*;
+import MathPipelines::*;
 
 `include "DEFNS.defines"
 
+function FixedPoint#(f,i) sqrt_fixed (FixedPoint#(f,i) x)
+  provisos (Min#(TAdd#(f, i), 2, 2), Min#(f, 1, 1));
+  if (x == 0) begin return 0; end
+  else begin
+    FixedPoint#(f,i) y = x;
+    for (Int#(4) i = 0; i < `SqrtPipeN; i = i + 1) begin
+      y = (y + (x / y)) / 2;
+    end
+    return y;
+  end
+endfunction
+
 module mkTestbenchSqrt (Empty);
-  SqrtPipeline sqrt <- mkSqrtPipeline;
-  Reg#(Int#(32)) count_put <- mkReg(0);
-  Reg#(Int#(32)) count_get <- mkReg(0);
+  Pipeline sqrt <- mkSqrtPipeline;
+  Reg#(Int#(16)) count_put <- mkReg(0);
+  Reg#(Int#(16)) count_get <- mkReg(0);
   Reg#(Int#(16)) mul <- mkReg(1);
 
-  Int#(32) total = 15;
+  Int#(16) total = 16;
 
   rule do_put (count_put < total);
     $display($time, ": Putting sqrt(0.25 * %d)", mul);
@@ -22,7 +34,9 @@ module mkTestbenchSqrt (Empty);
 
   rule do_get (sqrt.outputReady);
     let v <- sqrt.get;
-    $display($time, ": sqrt(0.25 * %d) = 0x%x", count_get + 1, v);
+    let c = count_get + 1;
+    let mul = FixedPoint { i: pack(c), f: 0 };
+    $display($time, ": sqrt(0.25 * %d) = 0x%x. Eq?: %b", c, v, v == sqrt_fixed(0.25 * mul));
     count_get <= count_get + 1;
   endrule
 
