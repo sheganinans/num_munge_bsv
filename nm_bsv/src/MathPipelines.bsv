@@ -10,8 +10,8 @@ typedef FixedPoint#(`FixPointSizes) FixedP;
 
 function FixedP sqrtFixed(FixedP x);
    function FixedP go(FixedP i, FixedP y);
-        if (i == 0) return y;
-        else        return go(i-1, (y + (x / y)) / 2);
+      if (i == 0) return y;
+      else        return go(i-1, (y + (x / y)) / 2);
    endfunction
    if (x == 0) return 0;
    else        return go(5, (x < 1) ? 0.5 : x / 1.414213562);
