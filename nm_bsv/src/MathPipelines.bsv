@@ -1,6 +1,5 @@
 package MathPipelines;
 
-import FIFOF::*;
 import FixedPoint::*;
 import Vector::*;
 
