@@ -4,7 +4,7 @@
     "xci_name": "PCIe_axi_interconnect_0_imp_auto_pc_0",
     "cell_name": "axi_interconnect_0/s01_couplers/auto_pc",
     "component_reference": "xilinx.com:ip:axi_protocol_converter:2.1",
-    "ip_revision": "33",
+    "ip_revision": "34",
     "gen_directory": ".",
     "parameters": {
       "component_parameters": {
@@ -55,12 +55,12 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
-        "IPREVISION": [ { "value": "33" } ],
+        "IPREVISION": [ { "value": "34" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "." } ],
         "SELECTEDSIMMODEL": [ { "value": "rtl" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
-        "SWVERSION": [ { "value": "2024.2" } ],
+        "SWVERSION": [ { "value": "2024.2.1" } ],
         "SYNTHESISFLOW": [ { "value": "GLOBAL" } ]
       }
     },

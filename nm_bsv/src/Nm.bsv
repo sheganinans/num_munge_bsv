@@ -13,6 +13,7 @@ module nm (Axi4LRdWrMaster#(`TLM_PRM_STD));
    Reg#(Bool) awready <- mkReg(False);
    Reg#(Bool) wready <- mkReg(False);
    Reg#(Bool) bvalid <- mkReg(False);
+   Reg#(AxiAddr#(`TLM_PRM_STD)) addr <- mkReg(32'h0);
 
    rule update_state;
       if (state == DONE)
@@ -22,6 +23,13 @@ module nm (Axi4LRdWrMaster#(`TLM_PRM_STD));
    endrule
 
    let prot = AxiProt { access: DATA, security: SECURE, privilege: NORMAL };
+
+   rule update_addr;
+      if (addr == 32'h0)
+         addr <= 32'hC000_0000;
+      else
+         addr <= 32'h0;
+   endrule
 
    interface Axi4LRdMaster read;
       method AxiAddr#(`TLM_PRM_STD) arADDR;
@@ -48,7 +56,7 @@ module nm (Axi4LRdWrMaster#(`TLM_PRM_STD));
 
    interface Axi4LWrMaster write;
       method AxiAddr#(`TLM_PRM_STD) awADDR;
-         return 0;
+         return addr;
       endmethod
       method AxiProt awPROT;
          return prot;

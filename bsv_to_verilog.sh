@@ -10,4 +10,4 @@ bsc -u -verilog \
     -show-schedule \
     -unspecified-to X \
     -p bsc-contrib/Libraries/Bus:bsc-contrib/Libraries/AMBA_TLM3/TLM3:bsc-contrib/Libraries/AMBA_TLM3/Axi:bsc-contrib/Libraries/AMBA_TLM3/Axi4:nm_bsv/src:%/Libraries \
-    ./nm_bsv/src/MathPipelines.bsv
+    ./nm_bsv/src/Nm.bsv

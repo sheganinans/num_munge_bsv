@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="43">
   <CompositeFile CompositeFileTopName="PCIe" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1740029670"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1740029670"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1740029670"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1740029670"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1742431783"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1742431783"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1742431783"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1742431783"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/PCIe_util_ds_buf_0_0/PCIe_util_ds_buf_0_0.xci" Type="IP">
         <Instance HierarchyPath="util_ds_buf_0"/>
@@ -44,6 +44,7 @@
         <ProcessingOrder Val="EARLY"/>
       </File>
       <File Name="ip/PCIe_axi_interconnect_0_1/PCIe_axi_interconnect_0_1.xci" Type="IP">
+        <Instance HierarchyPath="axi_interconnect_0"/>
         <Properties IsEditable="false" IsVisible="false" IsNetlistSimulation="false" Timestamp="1739693309" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -60,15 +61,6 @@
         <UsedIn Val="SIMULATION"/>
         <ProcessingOrder Val="NORMAL"/>
       </File>
-      <File Name="ip/PCIe_axi_interconnect_0_imp_xbar_0/PCIe_axi_interconnect_0_imp_xbar_0.xci" Type="IP">
-        <Instance HierarchyPath="axi_interconnect_0/xbar"/>
-        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="1739953279" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-        <ProcessingOrder Val="NORMAL"/>
-      </File>
       <File Name="ip/PCIe_proc_sys_reset_0_1/PCIe_proc_sys_reset_0_1.xci" Type="IP">
         <Instance HierarchyPath="proc_sys_reset_0"/>
         <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="1739958142" IsTrackable="true" IsStatusTracked="true"/>
@@ -78,31 +70,31 @@
         <UsedIn Val="SIMULATION"/>
         <ProcessingOrder Val="NORMAL"/>
       </File>
-      <File Name="synth/PCIe.v" Type="Verilog">
-        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+      <File Name="ip/PCIe_axi_interconnect_0_upgraded_ipi_imp_xbar_0_1/PCIe_axi_interconnect_0_upgraded_ipi_imp_xbar_0.xci" Type="IP">
+        <Instance HierarchyPath="axi_interconnect_0/xbar"/>
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
-        <ProcessingOrder Val="NORMAL"/>
-      </File>
-      <File Name="sim/PCIe.v" Type="Verilog">
-        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
-        <Library Name="xil_defaultlib"/>
         <UsedIn Val="SIMULATION"/>
         <ProcessingOrder Val="NORMAL"/>
       </File>
-      <File Name="PCIe.bmj" Type="BMJ">
-        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+      <File Name="ip/PCIe_axi_bram_ctrl_0_0/PCIe_axi_bram_ctrl_0_0.xci" Type="IP">
+        <Instance HierarchyPath="axi_bram_ctrl_0"/>
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
-        <UsedIn Val="PRE_SYNTHESIS"/>
-        <UsedIn Val="PRE_SIMULATION"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
         <ProcessingOrder Val="NORMAL"/>
       </File>
-      <File Name="PCIe_bmstub.v" Type="Verilog">
-        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+      <File Name="ip/PCIe_blk_mem_gen_0_0/PCIe_blk_mem_gen_0_0.xci" Type="IP">
+        <Instance HierarchyPath="blk_mem_gen_0"/>
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
-        <UsedIn Val="PRE_SYNTHESIS"/>
-        <UsedIn Val="PRE_SIMULATION"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
         <ProcessingOrder Val="NORMAL"/>
       </File>
       <File Name="ip/PCIe_axi_interconnect_0_imp_auto_us_df_0/PCIe_axi_interconnect_0_imp_auto_us_df_0.xci" Type="IP">
@@ -139,6 +131,42 @@
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
+        <ProcessingOrder Val="NORMAL"/>
+      </File>
+      <File Name="ip/PCIe_axi_interconnect_0_imp_auto_ds_0/PCIe_axi_interconnect_0_imp_auto_ds_0.xci" Type="IP">
+        <Instance HierarchyPath="axi_interconnect_0/m01_couplers/auto_ds"/>
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+        <ProcessingOrder Val="NORMAL"/>
+      </File>
+      <File Name="synth/PCIe.v" Type="Verilog">
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <ProcessingOrder Val="NORMAL"/>
+      </File>
+      <File Name="sim/PCIe.v" Type="Verilog">
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SIMULATION"/>
+        <ProcessingOrder Val="NORMAL"/>
+      </File>
+      <File Name="PCIe.bmj" Type="BMJ">
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="PRE_SYNTHESIS"/>
+        <UsedIn Val="PRE_SIMULATION"/>
+        <ProcessingOrder Val="NORMAL"/>
+      </File>
+      <File Name="PCIe_bmstub.v" Type="Verilog">
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="PRE_SYNTHESIS"/>
+        <UsedIn Val="PRE_SIMULATION"/>
         <ProcessingOrder Val="NORMAL"/>
       </File>
       <File Name="PCIe_ooc.xdc" Type="XDC">

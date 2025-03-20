@@ -5,10 +5,10 @@ import Vector::*;
 
 `include "DEFNS.defines"
 
-typedef FixedPoint#(`FixPointSizes) FixedP;
+typedef FixedPoint#(`FixPointSizes) FXP;
 
-function FixedP sqrtFixed(FixedP x);
-   function FixedP go(FixedP i, FixedP y);
+function FXP sqrt(FXP x);
+   function FXP go(FXP i, FXP y);
       if (i == 0) return y;
       else        return go(i-1, (y + (x / y)) / 2);
    endfunction
@@ -16,14 +16,14 @@ function FixedP sqrtFixed(FixedP x);
    else        return go(5, (x < 1) ? 0.5 : x / 1.414213562);
 endfunction
 
-function FixedP cosFixed(FixedP x);
+function FXP cos(FXP x);
    let x2 = x * x;
    let x4 = x2 * x2;
    let x6 = x4 * x2;
    return 1 - (x2 / 2) + (x4 / 24) - (x6 / 720);
 endfunction
 
-function FixedP sinFixed(FixedP x);
+function FXP sin(FXP x);
    let x2 = x * x;
    let x3 = x2 * x;
    let x4 = x2 * x2;
@@ -33,8 +33,8 @@ function FixedP sinFixed(FixedP x);
    return x - (x3 / 6) + (x5 / 120) - (x7 / 5040);
 endfunction
 
-function FixedP lnFixed(FixedP x);
-   function FixedP go(FixedP x_);
+function FXP ln(FXP x);
+   function FXP go(FXP x_);
       let t = (x_ - 1) / (x_ + 1);
       let t2 = t * t;
       let t3 = t2 * t;
@@ -50,12 +50,16 @@ function FixedP lnFixed(FixedP x);
       else       return go(x);
 endfunction
 
-function Tuple2#(FixedP, FixedP) boxMuller(FixedP u);
-   let r = 0.5 * (sqrtFixed(-2 * lnFixed(u)));
-   let theta = 6.28318530718 * u;
-   let z0 = r * cosFixed(theta);
-   let z1 = r * sinFixed(theta);
-   return tuple2(z0, z1);
+function FXP exp(FXP x);
+   let x2 = x * x;
+   let x3 = x2 * x;
+   let x4 = x3 * x;
+   return 1 + x + (x2 / 2) + (x3 / 6) + (x4 / 24);
+endfunction
+
+function FXP boxMuller(FXP u);
+   let r = 0.5 * (sqrt(-2 * ln(u)));
+   return r * cos(6.28318530718 * u);
 endfunction
 
 typedef Tuple4#(UInt#(32), UInt#(32), UInt#(32), UInt#(32)) State;
@@ -75,7 +79,7 @@ function Tuple2#(UInt#(32), State) xoshiro128Plus(State t);
 endfunction
 
 interface RandomStream;
-   method ActionValue#(Tuple2#(FixedP,FixedP)) next;
+   method ActionValue#(FXP) next;
 endinterface
 
 (* synthesize *)
@@ -83,17 +87,16 @@ module mkRandomStream (RandomStream);
    let initState = initialState(32'hC0FFEE42);
    match {._, .s} = xoshiro128Plus(initState);
    Reg#(State) state <- mkReg(s);
-   function ActionValue#(FixedP) toFixed(State st);
+   function ActionValue#(FXP) stepRNG(State st);
       actionvalue
          match {.v, .s} = xoshiro128Plus(st);
          state <= s;
-         return FixedPoint { i: pack(v)[31:16], f: 0 } / 32767;
+         return FXP { i: pack(v)[31:16], f: 0 } / 32767;
       endactionvalue
    endfunction
-   method ActionValue#(Tuple2#(FixedP, FixedP)) next;
-      let ret <- toFixed(state);
+   method ActionValue#(FXP) next;
+      let ret <- stepRNG(state);
       return boxMuller(ret);
    endmethod
 endmodule
-
 endpackage
