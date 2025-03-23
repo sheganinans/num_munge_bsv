@@ -3,32 +3,39 @@ import Axi4LDefines::*;
 import Axi4LMaster::*;
 import TLM3::*;
 
-`include "TLM.defines"
+import MathPipelines::*;
+import LnPipeline::*;
 
-typedef enum { DONE, WRITE } State deriving (Bits, Eq);
+`include "TLM.defines"
+`include "DEFNS.defines"
 
 (* synthesize, always_enabled *)
 module nm (Axi4LRdWrMaster#(`TLM_PRM_STD));
-   Reg#(State) state <- mkReg(DONE);
    Reg#(Bool) awready <- mkReg(False);
    Reg#(Bool) wready <- mkReg(False);
    Reg#(Bool) bvalid <- mkReg(False);
-   Reg#(AxiAddr#(`TLM_PRM_STD)) addr <- mkReg(32'h0);
-
-   rule update_state;
-      if (state == DONE)
-         state <= WRITE;
-      else if (state == WRITE && awready && wready && bvalid)
-         state <= WRITE;
-   endrule
+   Reg#(AxiAddr#(`TLM_PRM_STD)) addr <- mkReg(0);
+   //RandomStream rng <- mkRandomStream;
+   //TestMath tm <- mkTestMath;
+   FXPPipeline p <- mkSqrtPipeline;
+   Reg#(FXP) val <- mkReg(0);
 
    let prot = AxiProt { access: DATA, security: SECURE, privilege: NORMAL };
 
    rule update_addr;
-      if (addr == 32'h0)
-         addr <= 32'hC000_0000;
-      else
+      if (addr == 32'h3FFF_FFF)
          addr <= 32'h0;
+      else
+         addr <= addr + 4;
+   endrule
+
+   rule put_val (p.putReady);
+      p.put(32);
+   endrule
+
+   rule next_val (p.getReady);
+      let v <- p.get;
+      val <= v;
    endrule
 
    interface Axi4LRdMaster read;
@@ -62,25 +69,25 @@ module nm (Axi4LRdWrMaster#(`TLM_PRM_STD));
          return prot;
       endmethod
       method Bool awVALID;
-         return state == DONE || !awready;
+         return True;
       endmethod
       method Action awREADY (Bool ready);
          awready <= ready;
       endmethod
       method AxiData#(`TLM_PRM_STD) wDATA;
-         return 32'hDEADBEEF;
+         return pack(val);
       endmethod
       method AxiByteEn#(`TLM_PRM_STD) wSTRB;
          return 4'b1111;
       endmethod
       method Bool wVALID;
-         return state == DONE || !wready;
+         return True;
       endmethod
       method Action wREADY (Bool ready);
          wready <= ready;
       endmethod
       method Bool bREADY;
-         return state == WRITE && !bvalid;
+         return True;
       endmethod
       method Action bRESP (AxiResp resp);
       endmethod

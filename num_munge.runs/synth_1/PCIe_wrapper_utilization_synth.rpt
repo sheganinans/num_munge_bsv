@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2.1 (lin64) Build 5266912 Sun Dec 15 09:03:31 MST 2024
-| Date         : Wed Mar 19 19:26:24 2025
+| Date         : Sat Mar 22 17:44:19 2025
 | Host         : Jinn running 64-bit Ubuntu 24.04.2 LTS
 | Command      : report_utilization -file PCIe_wrapper_utilization_synth.rpt -pb PCIe_wrapper_utilization_synth.pb
 | Design       : PCIe_wrapper
@@ -31,13 +31,13 @@ Table of Contents
 +----------------------------+-------+-------+------------+-----------+-------+
 |          Site Type         |  Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+-------+-------+------------+-----------+-------+
-| Slice LUTs*                | 30487 |     0 |          0 |    134600 | 22.65 |
-|   LUT as Logic             | 26391 |     0 |          0 |    134600 | 19.61 |
-|   LUT as Memory            |  4096 |     0 |          0 |     46200 |  8.87 |
-|     LUT as Distributed RAM |  3790 |     0 |            |           |       |
+| Slice LUTs*                | 35255 |     0 |          0 |    134600 | 26.19 |
+|   LUT as Logic             | 31135 |     0 |          0 |    134600 | 23.13 |
+|   LUT as Memory            |  4120 |     0 |          0 |     46200 |  8.92 |
+|     LUT as Distributed RAM |  3814 |     0 |            |           |       |
 |     LUT as Shift Register  |   306 |     0 |            |           |       |
-| Slice Registers            | 31009 |     0 |          0 |    269200 | 11.52 |
-|   Register as Flip Flop    | 31009 |     0 |          0 |    269200 | 11.52 |
+| Slice Registers            | 31588 |     0 |          0 |    269200 | 11.73 |
+|   Register as Flip Flop    | 31588 |     0 |          0 |    269200 | 11.73 |
 |   Register as Latch        |     0 |     0 |          0 |    269200 |  0.00 |
 | F7 Muxes                   |   353 |     0 |          0 |     67300 |  0.52 |
 | F8 Muxes                   |    28 |     0 |          0 |     33650 |  0.08 |
@@ -61,8 +61,8 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | 0     |          Yes |           - |            - |
 | 390   |          Yes |           - |          Set |
 | 343   |          Yes |           - |        Reset |
-| 498   |          Yes |         Set |            - |
-| 29778 |          Yes |       Reset |            - |
+| 594   |          Yes |         Set |            - |
+| 30261 |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -163,17 +163,17 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +--------------------------+-------+----------------------+
 |         Ref Name         |  Used |  Functional Category |
 +--------------------------+-------+----------------------+
-| FDRE                     | 29778 |         Flop & Latch |
-| LUT6                     |  9689 |                  LUT |
-| LUT3                     |  8047 |                  LUT |
-| RAMD32                   |  5506 |   Distributed Memory |
-| LUT5                     |  5277 |                  LUT |
-| LUT4                     |  4485 |                  LUT |
-| LUT2                     |  2751 |                  LUT |
-| LUT1                     |  1956 |                  LUT |
-| RAMS32                   |  1783 |   Distributed Memory |
-| CARRY4                   |  1058 |           CarryLogic |
-| FDSE                     |   498 |         Flop & Latch |
+| FDRE                     | 30261 |         Flop & Latch |
+| LUT6                     |  9886 |                  LUT |
+| LUT3                     |  8298 |                  LUT |
+| LUT5                     |  6863 |                  LUT |
+| RAMD32                   |  5540 |   Distributed Memory |
+| LUT4                     |  4590 |                  LUT |
+| LUT2                     |  4487 |                  LUT |
+| LUT1                     |  2183 |                  LUT |
+| CARRY4                   |  2109 |           CarryLogic |
+| RAMS32                   |  1793 |   Distributed Memory |
+| FDSE                     |   594 |         Flop & Latch |
 | FDPE                     |   390 |         Flop & Latch |
 | MUXF7                    |   353 |                MuxFx |
 | FDCE                     |   343 |         Flop & Latch |

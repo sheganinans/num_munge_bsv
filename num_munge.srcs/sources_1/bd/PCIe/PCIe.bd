@@ -1140,13 +1140,13 @@
             "value": "9022"
           },
           "PF0_SRIOV_VF_DEVICE_ID": {
-            "value": "0000"
+            "value": "A032"
           },
           "PF2_DEVICE_ID_mqdma": {
-            "value": "9022"
+            "value": "9222"
           },
           "PF3_DEVICE_ID_mqdma": {
-            "value": "9022"
+            "value": "9322"
           },
           "axi_data_width": {
             "value": "64_bit"
@@ -1158,7 +1158,7 @@
             "value": "false"
           },
           "axisten_freq": {
-            "value": "125"
+            "value": "250"
           },
           "barlite2": {
             "value": "0"
@@ -1204,9 +1204,6 @@
           },
           "pl_link_cap_max_link_width": {
             "value": "X2"
-          },
-          "plltype": {
-            "value": "QPLL1"
           },
           "xdma_axilite_slave": {
             "value": "false"
@@ -1266,7 +1263,7 @@
                 "value_src": "constant"
               },
               "FREQ_HZ": {
-                "value": "125000000",
+                "value": "250000000",
                 "value_src": "user_prop"
               },
               "ID_WIDTH": {
@@ -1472,7 +1469,7 @@
                 "value_src": "constant"
               },
               "FREQ_HZ": {
-                "value": "125000000",
+                "value": "250000000",
                 "value_src": "user_prop"
               },
               "CLK_DOMAIN": {
